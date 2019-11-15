@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import "./TeamForm.css";
 
 const TeamForm = (props) => {
-    const [teamData, setTeamData] = useState({
+    const [member, setMember] = useState({
         name: '',
         email: '',
         role: ''
     });
 
     const memberChange = event => {
-        setTeamData({
-            ...teamData, [event.target.name]: event.target.value  
+        setMember({
+            ...member, [event.target.name]: event.target.value  
         })
+    }
+
+    const submitForm = (event) => {
+        event.preventDefault()
+        props.addNewMember(member)
     }
 
     return (
         <div>
-            <form className="form-container">
+            <form onSubmit={submitForm} className="form-container">
                 <label htmlFor="name">Name:
                 <input 
                 onChange={memberChange}
@@ -37,6 +42,8 @@ const TeamForm = (props) => {
                 name="role" 
                 type="text"/>
                 </label>
+
+                <button type="submit">Add Team Member</button>
             </form>
         </div>
     );
